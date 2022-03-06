@@ -1,10 +1,4 @@
-//
-// C++  Feb 2022
-//
-
-#include "ComplexNumber.h"
-
-/* Implementation of Class ComplexNumber:		Mar 2021
+/* Implementation of Class ComplexNumber:		March 2022
 
    Demonstrates Operator Overloading.
    Operator Overloading allows us to define the behaviour of operators (e.g. +.-,*, <, etc.)
@@ -13,37 +7,37 @@
    - operator overloading of "+" and "-" operators: (operator+) and (operator-)
    - operator overloading of global friend operators << and >>
 */
-
-#include <iostream>
 #include "ComplexNumber.h"
-
+#include <iostream>
 using namespace std;
 
-/* The stream insertion << and stream extraction >> operators are
+/* The stream insertion operator<< and stream extraction operator>>  are
    defined *outside* the class definition,
    and therefore have global scope.
-   They are GLOBAL operators that are overridden for a ComplexNumber.
+   They are GLOBAL operators that we override for our ComplexNumber class.
 */
 
-/* the "<<" operator is invoked by the following pattern :
+/* the insertion "operator<<" is invoked by the following pattern :
    "   outputStream << complexNumber   "
 */
 
-ostream& operator << (ostream& out, const ComplexNumber& c)
+ostream& operator<< (ostream& out, const ComplexNumber& c)
 {
     // As this is defined as a 'friend' of ComplexNumber in the header file,
-    // it has direct access to the private member data of the ComplexNumber object.
+    // code here has direct access to the private member data of the ComplexNumber object.
+    // (So, we don't need to call getters and setters)
 
+    // code to implement the operator<< functionality
     out << c.real;
     out << " + " << c.imaginary << "i" << endl;
     return out;
 }
 
-/* The extraction operator ">>"  is invoked by the following pattern
+/* The extraction "operator>>"  is invoked by the following pattern
    "  inputStream >> complexNumber     "
 */
 
-istream& operator >> (istream& in, ComplexNumber& c)
+istream& operator>> (istream& in, ComplexNumber& c)
 {
     cout << "Enter Real Part ";
     in >> c.real;
@@ -52,17 +46,16 @@ istream& operator >> (istream& in, ComplexNumber& c)
     return in;
 }
 
-
-// The + and > operators below are implemented as member functions,
+// The operator+ and operator> below are implemented as member functions,
 // as they are invoked on ComplexNumber objects.
 // i.e.  complexNumResult = complexNum1 + complexNum2
 
-/* Implementation of the operator "+",
+/* Implementation of the "operator+"
    enabling the addition of two ComplexNumber objects.
    Usage: complexNumberResult = complexNumber1 + complexNumber2;
 
 */
-ComplexNumber ComplexNumber::operator + (ComplexNumber const& obj) {
+ComplexNumber ComplexNumber::operator+ (ComplexNumber const& obj) {
     ComplexNumber temp;
     temp.real = real + obj.real;
     temp.imaginary = imaginary + obj.imaginary;
@@ -77,13 +70,13 @@ ComplexNumber ComplexNumber::operator + (ComplexNumber const& obj) {
    Assume that we need only compare the real parts of two complex numbers
    (and ignore the imaginary parts)
 */
-bool ComplexNumber::operator > (ComplexNumber const& obj) {
+bool ComplexNumber::operator> (ComplexNumber const& obj) {
     if (real > obj.real)
         return true;
     else
         return false;
 }
 
-// 2DO Implement a "less than" operator (using real part only)
+//TODO Implement a "less than" operator< (using real part only for comparisons)
 
 

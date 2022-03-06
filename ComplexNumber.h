@@ -19,10 +19,10 @@ private:
     int imaginary;
 
 public:
-    ComplexNumber(int r = 0, int i = 0)		// default initializers
+    ComplexNumber(int real = 0, int imaginary = 0)		// constructor with default initializers
     {
-        real = r;
-        imaginary = i;
+        this->real = real;
+        this->imaginary = imaginary;
     }
 
     void print() {
@@ -49,10 +49,12 @@ public:
       (i.e. the object on the Left hand side of the "<<" is not a ComplexNumber type; it
       is an output stream.
 
+      "friend" functions:
       However, as these operators work on ComplexNumber objects, we want them to have direct access
       to the member variables of those objects.  To achieve this we make them 'friend' functions,
       which gives them direct access to the member fields of the ComplexNumber class.
      */
 
 };
+
 #endif //SAM12_OPERATOR_OVERLOADING_COMPLEXNUMBER_COMPLEXNUMBER_H
