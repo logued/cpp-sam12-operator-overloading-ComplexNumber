@@ -33,28 +33,30 @@ public:
     // between two ComplexNumber objects.
     // complexNumberResult = complexNumber1 + complaexNumber2;
 
-    ComplexNumber operator + (ComplexNumber const& obj);
+    ComplexNumber operator+ (ComplexNumber const& obj);
 
     bool operator > (ComplexNumber const& obj);
 
-
-    // declaring overloaded global extraction and insertion operators
+    // Declaring overloaded global extraction >> and insertion << operators
+    // These are NOT member functions (as they don't have the "ComplexNumber::" scope resolution
+    // operator in front of their definition in the ComplexNumber.cpp file).
+    // However, they are declared as FRIEND functions in the header file, which gives the functions
+    // direct access to the fields (member data).
 
     friend ostream& operator << (ostream& out, const ComplexNumber& c);
     friend istream& operator >> (istream& in, ComplexNumber& c);
 
 
-    /* We don't want the global overloaded operators to be members of the ComplexNumber class,
-      as we will not be invoking them on ComplexNumber objects. ( complexObject.xxxxx  )
-      (i.e. the object on the Left hand side of the "<<" is not a ComplexNumber type; it
-      is an output stream.
+    /* We don't want the global overloaded operators to be member functions of the ComplexNumber class,
+      as we will not be invoking them on ComplexNumber objects. (like "c1.<<" )
+      (i.e. the object on the left hand side of the "<<" is not a ComplexNumber type; it
+      is an output stream.)
 
       "friend" functions:
       However, as these operators work on ComplexNumber objects, we want them to have direct access
       to the member variables of those objects.  To achieve this we make them 'friend' functions,
       which gives them direct access to the member fields of the ComplexNumber class.
      */
-
 };
 
 #endif //SAM12_OPERATOR_OVERLOADING_COMPLEXNUMBER_COMPLEXNUMBER_H
