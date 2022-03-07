@@ -66,8 +66,8 @@ istream& operator>> (istream& in, ComplexNumber& c)
 
 ComplexNumber ComplexNumber::operator+ (ComplexNumber const& other) {
     ComplexNumber temp;
-    temp.real = this->real + obj.real;
-    temp.imaginary = this->imaginary + obj.imaginary;
+    temp.real = this->real + other.real;
+    temp.imaginary = this->imaginary + other.imaginary;
     return temp; // return an object (by value)
 }
 
