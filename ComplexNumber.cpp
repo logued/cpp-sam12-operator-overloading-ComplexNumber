@@ -21,35 +21,40 @@ using namespace std;
 
 */
 
-/* the insertion "operator<<" is invoked by the following pattern :
+/* the stream insertion "operator<<" is invoked by the following pattern :
    "outputStream << complexNumber"  e.g. cout << c1;
+   Note that this is equivalent to the .toString() method in Java.
+   It allows us to 'dump' and object's contents to the output stream.
 */
 
 // Parameters:   << ("output stream", "reference to a constant ComplexNumber object")
 // Returns:      reference to the output stream (usually 'cout')
 //
-ostream& operator<< (ostream& out, const ComplexNumber& c)
+ostream& operator<< (ostream& out, const ComplexNumber& ref_ComplexNumber)
 {
     // As this is defined as a 'friend' of ComplexNumber in the header file,
     // code here has direct access to the private member data of the ComplexNumber object.
     // (So, we don't need to call getters and setters)
 
     // code to implement the operator<< functionality
-    out << c.real;
-    out << " + " << c.imaginary << "i" << endl;
+    out << ref_ComplexNumber.real;
+    out << " + " << ref_ComplexNumber.imaginary << "i" << endl;
     return out;
 }
 
 /* The extraction "operator>>"  is invoked by the following pattern
    "  inputStream >> complexNumber     "
+   In this case we must prompt the user to enter a real and imaginary part,
+   and then stream the inputted values into the target ComplexNumber object
+   using the reference to that ComplexNumber.
 */
 
-istream& operator>> (istream& in, ComplexNumber& c)
+istream& operator>> (istream& in, ComplexNumber& ref_complexNumber)
 {
     cout << "Enter Real Part ";
-    in >> c.real;
+    in >> ref_complexNumber.real;
     cout << "Enter Imaginary Part ";
-    in >> c.imaginary;
+    in >> ref_complexNumber.imaginary;
     return in;
 }
 
@@ -64,7 +69,7 @@ istream& operator>> (istream& in, ComplexNumber& c)
    Usage: complexNumberResult = complexNumber1 + complexNumber2;
 */
 
-ComplexNumber ComplexNumber::operator+ (ComplexNumber const& other) {
+ComplexNumber ComplexNumber::operator+ (const ComplexNumber& other) {
     ComplexNumber temp;
     temp.real = this->real + other.real;
     temp.imaginary = this->imaginary + other.imaginary;
@@ -78,7 +83,7 @@ ComplexNumber ComplexNumber::operator+ (ComplexNumber const& other) {
    Assume that we need only compare the real parts of two complex numbers
    (and ignore the imaginary parts)
 */
-bool ComplexNumber::operator> (ComplexNumber const& other) {
+bool ComplexNumber::operator> (const ComplexNumber& other) {
     if (this->real > other.real)
         return true;
     else
