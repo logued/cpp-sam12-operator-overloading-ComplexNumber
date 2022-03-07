@@ -31,7 +31,7 @@ public:
 
     // This is automatically called when the '+' symbol is used
     // between two ComplexNumber objects.
-    // complexNumberResult = complexNumber1 + complaexNumber2;
+    // complexNumberResult = complexNumber1 + complexNumber2;
 
     ComplexNumber operator+ (ComplexNumber const& obj);
 

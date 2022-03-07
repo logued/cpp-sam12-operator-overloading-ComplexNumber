@@ -64,7 +64,7 @@ istream& operator>> (istream& in, ComplexNumber& c)
    Usage: complexNumberResult = complexNumber1 + complexNumber2;
 */
 
-ComplexNumber ComplexNumber::operator+ (ComplexNumber const& obj) {
+ComplexNumber ComplexNumber::operator+ (ComplexNumber const& other) {
     ComplexNumber temp;
     temp.real = this->real + obj.real;
     temp.imaginary = this->imaginary + obj.imaginary;
@@ -78,8 +78,8 @@ ComplexNumber ComplexNumber::operator+ (ComplexNumber const& obj) {
    Assume that we need only compare the real parts of two complex numbers
    (and ignore the imaginary parts)
 */
-bool ComplexNumber::operator> (ComplexNumber const& obj) {
-    if (real > obj.real)
+bool ComplexNumber::operator> (ComplexNumber const& other) {
+    if (this->real > other.real)
         return true;
     else
         return false;
