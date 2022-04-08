@@ -1,7 +1,7 @@
 #ifndef SAM12_OPERATOR_OVERLOADING_COMPLEXNUMBER_COMPLEXNUMBER_H
 #define SAM12_OPERATOR_OVERLOADING_COMPLEXNUMBER_COMPLEXNUMBER_H
 
-
+//
 /*  ComplexNumber
 	A class that represents a Complex Number with Real and Imaginary number parts.
 	This class declares overloaded insertion << and extraction >> operators as 'friends'
