@@ -29,28 +29,28 @@ public:
         cout << "print() : Real: " << real << ", Imaginary: " << imaginary << endl;
     }
 
-    // This is automatically called when the '+' symbol is used
+    // Overloaded plus operator
+    // his is automatically called when the '+' symbol is used
     // between two ComplexNumber objects.
     // complexNumberResult = complexNumber1 + complexNumber2;
 
-    ComplexNumber operator+ (ComplexNumber const& obj);
+    ComplexNumber operator+ (ComplexNumber const& otherComplexNumber);
 
+    // Overloaded greater-than operator
     bool operator > (ComplexNumber const& obj);
 
+    // Global FRIEND functions.
     // Declaring overloaded global extraction >> and insertion << operators
-    // These are NOT member functions (as they don't have the "ComplexNumber::" scope resolution
-    // operator in front of their definition in the ComplexNumber.cpp file).
-    // However, they are declared as FRIEND functions in the header file, which gives the functions
-    // direct access to the fields (member data).
 
     friend ostream& operator << (ostream& out, const ComplexNumber& c);
     friend istream& operator >> (istream& in, ComplexNumber& c);
 
 
-    /* We don't want the global overloaded operators to be member functions of the ComplexNumber class,
+    /* Global Friend functions.
+     * We don't want the global overloaded operators to be member functions of the ComplexNumber class,
       as we will not be invoking them on ComplexNumber objects. (like "c1.<<" )
-      (i.e. the object on the left hand side of the "<<" is not a ComplexNumber type; it
-      is an output stream.)
+      (i.e. the object on the left-hand side of the "<<" is not a ComplexNumber type; it
+      is an output stream. i.e. cout << c1;)
 
       "friend" functions:
       However, as these operators work on ComplexNumber objects, we want them to have direct access

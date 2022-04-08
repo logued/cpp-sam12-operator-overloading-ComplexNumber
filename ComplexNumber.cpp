@@ -17,7 +17,7 @@ using namespace std;
  * in front of the function.  That means that they are not members of the
  * ComplexNumber class.  They are actually global functions (with global scope).
  * They can be called from anywhere (that has included ComplexNumber.h).
- * We have overloaded the "<<" and ">>" operators for the ComplexNumber class.
+ * We have overloaded the "<<" and ">>" operators to operate on ComplexNumber class objects.
  * However, we define them in the ComplexNumber class, because they operate on a
  * ComplexNumber object, and, when we use "friend", it means that the code in the
  * friend function can access the Data Members (fields) of the ComplexNumber class
@@ -30,23 +30,25 @@ using namespace std;
    It allows us to output an object's contents to the output stream.
 */
 
-// Parameters:   << ("output stream", "reference to a constant ComplexNumber object")
-// Returns:      reference to the output stream (usually 'cout')
+// Parameters:   out = "output stream", and
+//               ref_ComplexNumber = "reference to a constant ComplexNumber object"
+// Returns:      a reference to the output stream
 //
 ostream& operator<< (ostream& out, const ComplexNumber& ref_ComplexNumber)
 {
-    // As this is defined as a 'friend' of ComplexNumber in the header file,
+    // As this is defined as a 'friend' function in the ComplexNumber header file,
     // the code here has direct access to the private member data of the ComplexNumber object.
     // (So, we don't need to call getters and setters)
 
-    // code to implement the operator<< functionality
+    // code to implement the "operator<<" functionality
     out << ref_ComplexNumber.real;
     out << " + " << ref_ComplexNumber.imaginary << "i" << endl;
+
     return out;
 }
 
 /* The extraction "operator>>"  is invoked by the following pattern
-   "  inputStream >> complexNumber     "
+   "  inputStream >> complexNumber;    e.g. cin >> c1; "
    In this case we must prompt the user to enter a real and imaginary part,
    and then stream the inputted values into the target ComplexNumber object
    using the reference to that ComplexNumber.
@@ -56,8 +58,10 @@ istream& operator>> (istream& in, ComplexNumber& ref_complexNumber)
 {
     cout << "Enter Real Part ";
     in >> ref_complexNumber.real;
+
     cout << "Enter Imaginary Part ";
     in >> ref_complexNumber.imaginary;
+
     return in;
 }
 
@@ -73,14 +77,14 @@ istream& operator>> (istream& in, ComplexNumber& ref_complexNumber)
    Usage: complexNumberResult = complexNumber1 + complexNumber2;
 */
 
-ComplexNumber ComplexNumber::operator+ (const ComplexNumber& other)  {
+ComplexNumber ComplexNumber::operator+ (const ComplexNumber& otherComplexNumber)  {
 
-    ComplexNumber temp; // create a ComplexNumber object (on the stack)
+    ComplexNumber temp; // create a ComplexNumber object to store the result
 
-    temp.real = this->real + other.real;
-    temp.imaginary = this->imaginary + other.imaginary;
+    temp.real = this->real + otherComplexNumber.real;
+    temp.imaginary = this->imaginary + otherComplexNumber.imaginary;
 
-    return temp; // return contents of object (by value)
+    return temp; // return contents of temp object (by value)
 }
 
 //TODO Implement a 'minus' operator function: "operator-"
