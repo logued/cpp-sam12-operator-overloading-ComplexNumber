@@ -18,13 +18,16 @@ using namespace std;
  * ComplexNumber class.  They are actually global functions (with global scope).
  * They can be called from anywhere (that has included ComplexNumber.h).
  * We have overloaded the "<<" and ">>" operators for the ComplexNumber class.
-
+ * However, we define them in the ComplexNumber class, because they operate on a
+ * ComplexNumber object, and, when we use "friend", it means that the code in the
+ * friend function can access the Data Members (fields) of the ComplexNumber class
+ * directly.
 */
 
 /* the stream insertion "operator<<" is invoked by the following pattern :
-   "outputStream << complexNumber"  e.g. cout << c1;
-   Note that this is equivalent to the .toString() method in Java.
-   It allows us to 'dump' and object's contents to the output stream.
+   "outputStream << complexNumber"  e.g. "cout << c1";
+   Note that this is similar to implementing the .toString() method in Java.
+   It allows us to output an object's contents to the output stream.
 */
 
 // Parameters:   << ("output stream", "reference to a constant ComplexNumber object")
@@ -33,7 +36,7 @@ using namespace std;
 ostream& operator<< (ostream& out, const ComplexNumber& ref_ComplexNumber)
 {
     // As this is defined as a 'friend' of ComplexNumber in the header file,
-    // code here has direct access to the private member data of the ComplexNumber object.
+    // the code here has direct access to the private member data of the ComplexNumber object.
     // (So, we don't need to call getters and setters)
 
     // code to implement the operator<< functionality
@@ -62,26 +65,31 @@ istream& operator>> (istream& in, ComplexNumber& ref_complexNumber)
 // The operator+ and operator> below are implemented as MEMBER functions,
 // as they are invoked on ComplexNumber objects.
 // i.e.  complexNumResult = complexNum1 + complexNum2
-// The + operator is "invoked on the complexNum1 object"
+// Above, the + operator is "invoked on the complexNum1 object" and is
+// passed a reference to the complexNumber2 object.
 
 /* Implementation of the "operator+"
    enabling the addition of two ComplexNumber objects.
    Usage: complexNumberResult = complexNumber1 + complexNumber2;
 */
 
-ComplexNumber ComplexNumber::operator+ (const ComplexNumber& other) {
-    ComplexNumber temp;
+ComplexNumber ComplexNumber::operator+ (const ComplexNumber& other)  {
+
+    ComplexNumber temp; // create a ComplexNumber object (on the stack)
+
     temp.real = this->real + other.real;
     temp.imaginary = this->imaginary + other.imaginary;
-    return temp; // return an object (by value)
+
+    return temp; // return contents of object (by value)
 }
 
 //TODO Implement a 'minus' operator function: "operator-"
 
 
-/* Implementation of the greater than operator: "operator>"
+/* Implementation of the greater-than operator: "operator>"
    Assume that we need only compare the real parts of two complex numbers
    (and ignore the imaginary parts)
+   e.g. if ( c1 > c2 ) { do something...... }
 */
 bool ComplexNumber::operator> (const ComplexNumber& other) {
     if (this->real > other.real)
@@ -91,6 +99,6 @@ bool ComplexNumber::operator> (const ComplexNumber& other) {
 }
 
 //TODO Implement a "less than" operator< (using real part only for comparisons)
-// Test it from main()
+// Test it in main()
 
 
