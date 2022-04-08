@@ -34,7 +34,7 @@ public:
     // between two ComplexNumber objects.
     // complexNumberResult = complexNumber1 + complexNumber2;
 
-    ComplexNumber operator+ (ComplexNumber const& otherComplexNumber);
+    ComplexNumber operator+ (const ComplexNumber & otherComplexNumber);
 
     // Overloaded greater-than operator
     bool operator > (ComplexNumber const& obj);
