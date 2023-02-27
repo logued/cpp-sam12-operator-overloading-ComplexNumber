@@ -1,11 +1,11 @@
-/* Implementation of Class ComplexNumber:		March 2022
+/* Implementation of Class ComplexNumber:		February 2023
 
    Demonstrates implementation of Operator Overloading functions.
    Operator Overloading allows us to define the behaviour of operators,
-   such as +,-,*, <, << etc., for a class type.
+   such as operators:  +,-,*, <, << etc., for a class type.
 
     Implemented below:
-   - operator overloading of "+" and "-" operators: (operator+) and (operator-)
+   - operator overloading of "operator+" and "operator-" operators
    - operator overloading of global friend operators << and >>
 */
 #include "ComplexNumber.h"
@@ -17,17 +17,18 @@ using namespace std;
  * in front of the function.  That means that they are not members of the
  * ComplexNumber class.  They are actually global functions (with global scope).
  * They can be called from anywhere (that has included ComplexNumber.h).
- * We have overloaded the "<<" and ">>" operators to operate on ComplexNumber class objects.
+ * We have overloaded the "<<" and ">>" operators to operate on ComplexNumber objects.
  * However, we define them in the ComplexNumber class, because they operate on a
- * ComplexNumber object, and, when we use "friend", it means that the code in the
- * friend function can access the Data Members (fields) of the ComplexNumber class
- * directly.
+ * ComplexNumber object, and, when we use the keyword "friend", which means that
+ * the code in the friend function can directly access the Data Members (fields) of
+ * the ComplexNumber class.
 */
 
-/* the stream insertion "operator<<" is invoked by the following pattern :
+/* The stream insertion "operator<<" is invoked by the following pattern :
    "outputStream << complexNumber"  e.g. "cout << c1";
-   Note that this is similar to implementing the .toString() method in Java.
-   It allows us to output an object's contents to the output stream.
+   Note that this is similar (in functionality) to implementing the .toString() method in Java.
+   It allows us to output an object's contents to the output stream in a format decided upon by
+   the programmer.
 */
 
 // Parameters:   out = "output stream", and
@@ -41,8 +42,8 @@ ostream& operator<< (ostream& out, const ComplexNumber& ref_ComplexNumber)
     // (So, we don't need to call getters and setters)
 
     // code to implement the "operator<<" functionality
-    out << ref_ComplexNumber.real;
-    out << " + " << ref_ComplexNumber.imaginary << "i" << endl;
+    out << "[ Real:" << ref_ComplexNumber.real << ", ";
+    out <<  "Imaginary:" << ref_ComplexNumber.imaginary << " ]" << endl;
 
     return out;
 }
@@ -81,8 +82,8 @@ ComplexNumber ComplexNumber::operator+ (const ComplexNumber& otherComplexNumber)
 
     ComplexNumber temp; // create a ComplexNumber object to store the result
 
-    temp.real = this->real + otherComplexNumber.real;
-    temp.imaginary = this->imaginary + otherComplexNumber.imaginary;
+    temp.real = this->real + otherComplexNumber.real;   // add both real parts together
+    temp.imaginary = this->imaginary + otherComplexNumber.imaginary; // add both imaginary parts together
 
     return temp; // return contents of temp object (by value)
 }

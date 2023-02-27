@@ -3,19 +3,25 @@
 
 //
 /*  ComplexNumber
-	A class that represents a Complex Number with Real and Imaginary number parts.
-	This class declares overloaded insertion << and extraction >> operators as 'friends'
-	and overloaded "+" and ">" operators.
-*/
+	A class that represents a Complex Number with Real and Imaginary parts.
+	This class declares:
+        an overloaded insertion operator  "operator<<" and
+        an overloaded extraction operator "operator>>"
+        both as "friend" functions.
+        A "friend" function is one that can access the private member data of the ComplexNumber class
+        without actually being member functions of the class.  They are global functions.
 
+	This class als defines:
+      an overloaded add operator "operator+" and
+      an overloaded greater than operator "operator>".
+      Both of these are member functions of the class.
+*/
 #include <iostream>
-using namespace std;
 
 class ComplexNumber
 {
-
 private:
-    int real;	// member data/fields
+    int real;	    // member data (fields)
     int imaginary;
 
 public:
@@ -26,36 +32,36 @@ public:
     }
 
     void print() {
-        cout << "print() : Real: " << real << ", Imaginary: " << imaginary << endl;
+        std::cout << "print() : Real: " << real << ", Imaginary: " << imaginary << std::endl;
     }
 
-    // Overloaded plus operator
-    // his is automatically called when the '+' symbol is used
+    // Definition of Overloaded plus (+) operator
+    // This is automatically called when the '+' symbol is used
     // between two ComplexNumber objects.
     // complexNumberResult = complexNumber1 + complexNumber2;
 
     ComplexNumber operator+ (const ComplexNumber & otherComplexNumber);
 
-    // Overloaded greater-than operator
+    // Overloaded greater-than (>) operator, is used to compare two ComplexNumber objects
     bool operator > (ComplexNumber const& obj);
 
     // Global FRIEND functions.
-    // Declaring overloaded global extraction >> and insertion << operators
+    // Declaring overloaded global extraction operator>> and insertion operator<< operators.
 
-    friend ostream& operator << (ostream& out, const ComplexNumber& c);
-    friend istream& operator >> (istream& in, ComplexNumber& c);
-
+    friend std::ostream& operator << (std::ostream& out, const ComplexNumber& c);
+    friend std::istream& operator >> (std::istream& in, ComplexNumber& c);
 
     /* Global Friend functions.
      * We don't want the global overloaded operators to be member functions of the ComplexNumber class,
       as we will not be invoking them on ComplexNumber objects. (like "c1.<<" )
       (i.e. the object on the left-hand side of the "<<" is not a ComplexNumber type; it
-      is an output stream. i.e. cout << c1;)
+      is an output stream. i.e. "cout << c1") Therefore, our operator takes a stream to its left, and
+      a ComplexNumber to its right. So, the above function definitions are used to satisfy this requirement.
 
       "friend" functions:
       However, as these operators work on ComplexNumber objects, we want them to have direct access
       to the member variables of those objects.  To achieve this we make them 'friend' functions,
-      which gives them direct access to the member fields of the ComplexNumber class.
+      which gives them direct access to the member data fields of the ComplexNumber class.
      */
 };
 
